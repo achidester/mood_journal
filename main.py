@@ -1,5 +1,15 @@
-#possibly break this into smaller hashes that will help the computer respond in certain ways based on mood.
+# Mood Journal App
 
+
+import tkinter
+
+#I watched this video for all tkinter (https://www.youtube.com/watch?v=YXPyB4XeYLA)
+window = tkinter.Tk()
+label =  tkinter.Label(window, text="Mood Journal")
+label.pack()
+
+
+#possibly break this into smaller hashes that will help the computer respond in certain ways based on mood.
 mood_hash = {
     "sad": "\nSurely tomorrow will be better",
     "happy": "\nThat's great news!",
@@ -20,8 +30,6 @@ else:
     print("I haven't heard that one, what does it feel like?")
     mood_value = input()
     mood_hash[user_mood] = mood_value
-
-
 
 
 print("Here are some journal writing prompts for today...", f"\n")
