@@ -1,5 +1,5 @@
 # Mood Journal App
-
+#I used this video as a tkinter resource (https://www.youtube.com/watch?v=YXPyB4XeYLA)
 
 from cProfile import label
 from tkinter import *
@@ -14,13 +14,38 @@ positive_prompts = ['What made you smile today?',  'What was your favorite thing
 
 both_prompts = negative_prompts + positive_prompts
 
-#I watched this video for all tkinter (https://www.youtube.com/watch?v=YXPyB4XeYLA)
+# tkinter "canvas" window
 window = Tk()
 window.configure(bg='white')
 window.geometry('630x600')
 window.resizable(0,0)
 
-def moodEntry(event=None):
+
+# continue button will clear the intro and pipe to mood entry
+def continueButton(event=None):
+    intro.destroy()
+    continue_button.destroy()
+    moodQuestion()
+
+def moodQuestion():
+    global user_mood, mood_button, intro_question 
+
+    intro_question = Label(window, bg="white", text ="In one word, tell me how you're feeling today")
+    intro_question.pack()
+    # user_mood entry
+    user_mood = Entry(window, width=20)
+    user_mood.pack()
+    mood_button = Button(window, bg="white", text="Enter mood", command=moodEntered) 
+    mood_button.pack()
+    window.bind('<Return>', moodEntered)
+
+
+def moodEntered(event=None):
+    
+    intro_question.pack_forget()
+    user_mood.pack_forget()
+    mood_button.pack_forget()
+
     reaction_string = "So you are feeling " + user_mood.get() + " today"
     reaction_label = Label(window, bg="white", pady=5, text=reaction_string)
     reaction_label.pack()
@@ -39,10 +64,6 @@ def moodEntry(event=None):
     response_label = Label(window, bg="white", pady=5, text=response_string)
     response_label.pack()
     writingPrompts(mood)
-
-def promptEntry(event=None):
-    reaction_string = Label(window, bg="white", pady=5, text="Okay I will generate your journal post for today")
-    reaction_string.pack()
     
 def writingPrompts(mood):
     prompts_label = Label(window, bg="white", pady=5, text="Here is a writing prompt based off your mood... ")
@@ -70,6 +91,10 @@ def userPromptResponse():
     response_button.pack()
     window.bind('<Return>', None)
 
+def promptEntry(event=None):
+    reaction_string = Label(window, bg="white", pady=5, text="Okay I will generate your journal post for today")
+    reaction_string.pack()
+
 
 # Top logo
 canvas = Canvas(window, width=630, height=200, bg="white")
@@ -80,22 +105,10 @@ canvas.pack(side=TOP)
 # intro page
 intro = Label(window, bg="white", padx=15, text ='Welcome to the mood journal. \n Tell me how you feel today and I will give you a prompt based off your mood', font=25)
 intro.pack()
-continue_button = Button(window, bg="white", text="Continue")
+continue_button = Button(window, bg="white", text="Continue", command=continueButton)
 continue_button.pack()
+window.bind('<Return>', continueButton)
 
-
-    # intro question
-intro_question = Label(window, bg="white", text ='How are you feeling today?')
-intro_question.pack()
-
-# user_mood entry
-user_mood = Entry(window, width=20)
-user_mood.pack()
-
-window.bind('<Return>', moodEntry)
-
-mood_button = Button(window, bg="white", text="Enter mood", command=moodEntry)
-mood_button.pack()
 
 
 window.mainloop()
