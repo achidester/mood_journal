@@ -10,7 +10,7 @@ negative_moods = ['sad', 'cranky', 'depressed', 'mad', 'bored', 'meh', 'scared',
 positive_moods = ['happy', 'super', 'excited', 'peachy', 'silly', 'great', 'loved', 'giddy']
 
 negative_prompts = ['What little thing can you do to improve your mood right now?', 'Where would you go if you could go anywhere?', 'Is there anything you can learn from this?', 'What upset you today?']
-positive_prompts = ['What made you smile today?',  'What was your favorite thing about today?', 'Did something make you laugh?', 'What do you want to remember about today?', 'What song makes you happy?']
+positive_prompts = ['What made you smile today?',  'What was your favorite thing about today?', 'Did something make you laugh?', 'What do you want to remember about today?']
 
 both_prompts = negative_prompts + positive_prompts
 
@@ -19,7 +19,6 @@ window = Tk()
 window.configure(bg='white')
 window.geometry('630x600')
 window.resizable(0,0)
-
 
 def moodEntry(event=None):
     reaction_string = "So you are feeling " + user_mood.get() + " today"
@@ -45,7 +44,6 @@ def promptEntry(event=None):
     reaction_string = Label(window, bg="white", pady=5, text="Okay I will generate your journal post for today")
     reaction_string.pack()
     
-
 def writingPrompts(mood):
     prompts_label = Label(window, bg="white", pady=5, text="Here is a writing prompt based off your mood... ")
     prompts_label.pack()
@@ -59,7 +57,6 @@ def writingPrompts(mood):
     else:
         random_number = random.randint(1, len(both_prompts))
         actual_prompt = Label(window, bg="white", pady=5, text=both_prompts[random_number])
-
     actual_prompt.pack()
     
     window.bind('<Return>', promptEntry)
@@ -80,10 +77,16 @@ img = PhotoImage(file="logo.png")
 canvas.create_image(330,100,image=img)
 canvas.pack(side=TOP)
 
+# intro page
+intro = Label(window, bg="white", padx=15, text ='Welcome to the mood journal. \n Tell me how you feel today and I will give you a prompt based off your mood', font=25)
+intro.pack()
+continue_button = Button(window, bg="white", text="Continue")
+continue_button.pack()
 
-# intro question
-introduction = Label(window, bg="white", text ='How are you feeling today?')
-introduction.pack()
+
+    # intro question
+intro_question = Label(window, bg="white", text ='How are you feeling today?')
+intro_question.pack()
 
 # user_mood entry
 user_mood = Entry(window, width=20)
@@ -93,4 +96,6 @@ window.bind('<Return>', moodEntry)
 
 mood_button = Button(window, bg="white", text="Enter mood", command=moodEntry)
 mood_button.pack()
+
+
 window.mainloop()
