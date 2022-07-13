@@ -1,12 +1,15 @@
 # Mood Journal App
 
 
-import tkinter
+import tkinter as tk
 
 #I watched this video for all tkinter (https://www.youtube.com/watch?v=YXPyB4XeYLA)
-window = tkinter.Tk()
-label =  tkinter.Label(window, text="Mood Journal")
-label.pack()
+window = tk.Tk()
+canvas = tk.Canvas(window, width=800, height=500)
+canvas.grid(columnspan=5)
+img = tk.PhotoImage(file="logo.png")
+img.subsample(20,20)
+canvas.create_image(400,100,image=img)
 
 
 #possibly break this into smaller hashes that will help the computer respond in certain ways based on mood.
